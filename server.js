@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv').config();
 const userRouter = require('./routes/users');
+const itemRouter = require('./routes/items');
 
 const SERVERDEVPORT = 4741;
 const CLIENTDEVPORT = 5173;
@@ -23,12 +24,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/users', userRouter);
+app.use('/items', itemRouter);
 
-app.use('/users', require('./routes/users'));
-
-const ensureLoggedIn = require('./config/ensureLoggedIn');
-app.use('/items', ensureLoggedIn, require('./routes/items'));
-app.use('/orders', ensureLoggedIn, require('./routes/orders'));
+app.use('/orders', require('./routes/orders'));
 
 app.get('/*', function (req, res) {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
