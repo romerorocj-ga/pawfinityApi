@@ -7,6 +7,7 @@ module.exports = {
   setItemQtyInCart,
   checkout,
   history,
+  deleteOrder,
 };
 
 async function cart(req, res) {
@@ -36,4 +37,19 @@ async function checkout(req, res) {
 async function history(req, res) {
   const orders = await Order.find({ user: req.user._id, isPaid: true }).sort({ createdAt: -1 });
   res.json(orders);
+}
+
+async function deleteOrder(req, res) {
+  console.log(req.params.id)
+  try {
+    const deletedOrder = await Order.findByIdAndDelete(req.params.id);
+    console.log(deleteOrder)
+    if (!deletedOrder) {
+      return res.status(405).json({ message: 'Order not found' });
+    }
+    res.json(deletedOrder);
+  } catch (error) {
+    console.error('Error deleting order:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
 }
