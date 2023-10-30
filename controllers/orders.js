@@ -1,11 +1,12 @@
 const Order = require('../models/order');
-// const Item = require('../../models/item');
+const Item = require('../models/item');
 
 module.exports = {
   cart,
   addToCart,
   setItemQtyInCart,
   checkout,
+  history,
 };
 
 async function cart(req, res) {
@@ -30,4 +31,9 @@ async function checkout(req, res) {
   cart.isPaid = true;
   await cart.save();
   res.json(cart);
+}
+
+async function history(req, res) {
+  const orders = await Order.find({ user: req.user._id, isPaid: true }).sort({ createdAt: -1 });
+  res.json(orders);
 }

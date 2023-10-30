@@ -1,39 +1,46 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
-require('dotenv').config();
-const userRouter = require('./routes/users');
-const itemRouter = require('./routes/items');
+const express = require('express')
+const mongoose = require('mongoose')
+const cors = require('cors')
+const path = require('path');
+require('dotenv').config()
+const userRouter = require('./routes/users')
 
-const SERVERDEVPORT = 4741;
-const CLIENTDEVPORT = 5173;
 
-mongoose.connect(process.env.DATABASE_URL);
+const SERVERDEVPORT = 4741
+const CLIENTDEVPORT = 5173
 
-const app = express();
+mongoose.connect(process.env.DATABASE_URL)
 
-app.use(
-  cors({
-    origin: process.env.CLIENT_ORIGIN || `http://localhost:${CLIENTDEVPORT}`,
-  })
-);
+const app = express()
 
-const PORT = process.env.PORT || SERVERDEVPORT;
+app.use(cors({ origin: process.env.CLIENT_ORIGIN || `http://localhost:${CLIENTDEVPORT}` }))
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+const PORT = process.env.PORT || SERVERDEVPORT
 
-app.use('/users', userRouter);
-app.use('/items', itemRouter);
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
-app.use('/orders', require('./routes/orders'));
+app.use(require('./config/checkToken'));
+
+app.use('/users', userRouter)
+
+app.use('/users', require('./routes/users'));
+
+const ensureLoggedIn = require('./config/ensureLoggedIn');
+app.use('/items', ensureLoggedIn, require('./routes/items'));
+app.use('/orders', ensureLoggedIn, require('./routes/orders'));
+
+
 
 app.get('/*', function (req, res) {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  });
+  
+
+
 
 app.listen(PORT, () => {
-  console.log('listening on port ' + PORT);
-});
+    console.log('listening on port ' + PORT)
+})
 
-module.exports = app;
+module.exports = app

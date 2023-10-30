@@ -43,7 +43,7 @@ const Item = require('./models/item');
     { name: 'Butterfly', emoji: '🦋 ', category: categories[4], price: 2.0 },
     { name: 'Lizard', emoji: '🦎', category: categories[5], price: 2.95 },
     { name: 'Snake', emoji: '🐍', category: categories[5], price: 3.95 },
-    { name: 'Turtle', emoji: '🐢 ', category: categories[6], price: 0.95 },
+    { name: 'Turtle', emoji: '🐢 ', category: categories[5], price: 0.95 },
   ]);
 
   console.log(items);
