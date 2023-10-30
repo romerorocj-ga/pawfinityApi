@@ -3,13 +3,13 @@
 
 ## Images of Application
 - Sign Up Page
-
+<img width="1436" alt="Screenshot 2023-10-30 at 7 17 40 PM" src="https://github.com/romerorocj-ga/pawfinityClient/assets/140639820/8601b779-95bf-42db-8695-e3877f0f6c70">
 
 - Main Page
-
+<img width="1436" alt="Screenshot 2023-10-30 at 7 18 09 PM" src="https://github.com/romerorocj-ga/pawfinityClient/assets/140639820/93deb269-8b41-4458-a6af-0cb23eef3f75">
 
 - Order History Page
-
+<img width="1436" alt="Screenshot 2023-10-30 at 7 18 39 PM" src="https://github.com/romerorocj-ga/pawfinityClient/assets/140639820/630ac468-d67f-4021-9997-b01794c53b18">
 
 
 ## Technologies Used
